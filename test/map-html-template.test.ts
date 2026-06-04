@@ -82,4 +82,20 @@ describe('buildMapHtml', () => {
     expect(html).toContain('&lt;b&gt;x&lt;/b&gt;');
     expect(html).not.toContain('<title>gbrain - <b>x</b>');
   });
+
+  test('includes the gallery-grade premium hooks', () => {
+    const html = buildMapHtml(sampleModel(), { inlineAssets: true, visJs: SENTINEL });
+    // glowing depth nodes: custom canvas renderer
+    expect(html).toContain("shape: 'custom'");
+    expect(html).toContain('ctxRenderer');
+    // frosted-glass panels
+    expect(html).toContain('backdrop-filter');
+    // motion gated for accessibility
+    expect(html).toContain('prefers-reduced-motion');
+    // navigation chrome + minimap
+    expect(html).toContain('id="minimap"');
+    expect(html).toContain('id="zoom-in"');
+    expect(html).toContain('id="fit"');
+    expect(html).toContain('id="controls"');
+  });
 });

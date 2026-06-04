@@ -13,6 +13,9 @@ import {
   humanizeLinkType,
   edgeIsDashed,
   darken,
+  lighten,
+  glowRgba,
+  gradientStops,
   relativeLuminance,
 } from '../src/core/map/palette.ts';
 
@@ -58,6 +61,23 @@ describe('map palette', () => {
     const d = darken('#4F9D69', 0.2);
     expect(d).toMatch(/^#[0-9a-f]{6}$/);
     expect(relativeLuminance(d)).toBeLessThan(relativeLuminance('#4F9D69'));
+  });
+
+  test('lighten produces a lighter, valid hex', () => {
+    const l = lighten('#4F9D69', 0.3);
+    expect(l).toMatch(/^#[0-9a-f]{6}$/);
+    expect(relativeLuminance(l)).toBeGreaterThan(relativeLuminance('#4F9D69'));
+  });
+
+  test('glowRgba and gradientStops produce premium node stops', () => {
+    expect(glowRgba('#4F9D69', 0.28)).toBe('rgba(79, 157, 105, 0.28)');
+    const g = gradientStops('#4F9D69');
+    expect(g.edge).toBe('#4F9D69');
+    expect(g.center).toMatch(/^#[0-9a-f]{6}$/);
+    expect(g.ring).toMatch(/^#[0-9a-f]{6}$/);
+    // center is lighter than the edge; ring is darker — gives the orb its depth
+    expect(relativeLuminance(g.center)).toBeGreaterThan(relativeLuminance(g.edge));
+    expect(relativeLuminance(g.ring)).toBeLessThan(relativeLuminance(g.edge));
   });
 
   test('link helpers', () => {

@@ -191,11 +191,28 @@ function rgbToHex(r: number, g: number, b: number): string {
   return `#${c(r)}${c(g)}${c(b)}`;
 }
 
-/** Darken a hex color by `frac` (0..1). Used for node borders. */
+/** Darken a hex color by `frac` (0..1). Used for node borders/rings. */
 export function darken(hex: string, frac = 0.18): string {
   const [r, g, b] = hexToRgb(hex);
   const k = 1 - frac;
   return rgbToHex(r * k, g * k, b * k);
+}
+
+/** Lighten a hex color by `frac` (0..1) toward white. Node-gradient centers. */
+export function lighten(hex: string, frac = 0.3): string {
+  const [r, g, b] = hexToRgb(hex);
+  return rgbToHex(r + (255 - r) * frac, g + (255 - g) * frac, b + (255 - b) * frac);
+}
+
+/** `rgba()` string of `hex` at `alpha` — soft glow/halo fills. */
+export function glowRgba(hex: string, alpha = 0.28): string {
+  const [r, g, b] = hexToRgb(hex);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+/** Radial-fill + ring stops for a premium "orb" node from one topic color. */
+export function gradientStops(hex: string): { center: string; edge: string; ring: string } {
+  return { center: lighten(hex, 0.3), edge: hex, ring: darken(hex, 0.22) };
 }
 
 /**
