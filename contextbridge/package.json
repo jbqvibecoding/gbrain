@@ -1,0 +1,33 @@
+{
+  "name": "@contextbridge/core",
+  "version": "0.1.0",
+  "description": "Standalone OAuth-integrations + 20-minute auto-pull module. One-click OAuth into 118+ third-party services via Composio (direct mode), each connection exposed to an agent as typed tools, with a periodic pull loop that lands new data into a pluggable sink (default: GBrain brainpages).",
+  "type": "module",
+  "module": "src/index.ts",
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./sink/gbrain": "./src/gbrain/adapter.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "bun test"
+  },
+  "keywords": [
+    "oauth",
+    "composio",
+    "integrations",
+    "agent-tools",
+    "gbrain",
+    "context-memory"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "gbrain": "*"
+  },
+  "peerDependenciesMeta": {
+    "gbrain": {
+      "optional": true
+    }
+  }
+}

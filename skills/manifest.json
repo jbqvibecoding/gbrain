@@ -80,6 +80,11 @@
       "description": "Ingest meeting transcripts with attendee enrichment, entity propagation, and timeline merge."
     },
     {
+      "name": "oauth-ingest",
+      "path": "oauth-ingest/SKILL.md",
+      "description": "Refine raw context-memory pulled from OAuth-connected services (Gmail, Slack, Notion, GitHub, Linear, Calendar) by ContextBridge into brainpages; routes each oauth-raw page to the right refining skill."
+    },
+    {
       "name": "citation-fixer",
       "path": "citation-fixer/SKILL.md",
       "description": "Audit and fix citation formatting across brain pages."
