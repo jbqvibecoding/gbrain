@@ -128,6 +128,28 @@ gbrain query "what themes show up across my notes?"
 
 Postgres-at-scale, Supabase, and thin-client setup paths live in [`docs/INSTALL.md`](docs/INSTALL.md).
 
+### See your brain as a graph (`gbrain link-map`)
+
+Turn your brain's wiki-link graph into a standalone, interactive, Obsidian-style
+relationship map — a single self-contained HTML file you can open in any browser
+(no server, no dependencies). Nodes are pages colored by topic (people, companies,
+meetings, concepts, deals, media, projects, …) and sized by how connected they are;
+click a node to focus its neighborhood, search and filter by topic or relationship
+type, and inspect any page's links + backlinks.
+
+```bash
+gbrain link-map                       # whole brain → ./brain-linkmap.html
+gbrain link-map --out /tmp/map.html   # custom output path
+gbrain link-map --source wiki         # scope to one source
+gbrain link-map --type person         # only one page type
+gbrain link-map --min-degree 1        # hide unconnected pages
+```
+
+The renderer is built on [Cytoscape.js](https://js.cytoscape.org/), reusing the
+graph recipe from the [Juggl](https://github.com/HEmile/juggl) Obsidian plugin
+(force layout + styling), packaged into a self-contained map. See
+[`docs/guides/link-map.md`](docs/guides/link-map.md).
+
 ### Connect GBrain to your AI client (MCP)
 
 GBrain exposes 30+ tools over MCP (stdio and HTTP). The specific snippet depends on which client you use:
